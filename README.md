@@ -1,8 +1,17 @@
-# Streamlit Deeplink
+# Streamlit Deeplinker
 
 Set state deep in an application with ease. 
 
 Make them navigatable through your broswer history, and shareable with other people through an URL.
+
+## Install
+Install with your favorite package manager
+
+**Poetry**: `poetry add streamlit-deeplinker`
+
+**Pip**: `pip install streamlit-deeplinker`
+
+And then you can start creating deeplink applications like the following:
 
 ```python
 from streamlit_deeplinker import deeplinks, set_deeplink
@@ -11,11 +20,11 @@ from pydantic import BaseModel
 class StateA(BaseModel):
     name: str
 
-def page_a(state: StateA):
+async def page_a(state: StateA):
     ...
 
 @deeplinks(
-    deeplinks={ # type: ignore
+    deeplinks={
         StateA: page_a,
     }
 )
