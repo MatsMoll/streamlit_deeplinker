@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "streamlit-deeplinker"
-version = "0.1.1"
+version = "0.1.2"
 description = "A package that makes it possible to add deeplinks in a streamlit application"
 authors = ["Mats E. Mollestad <mats@mollestad.no>"]
 readme = "README.md"

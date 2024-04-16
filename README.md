@@ -21,7 +21,10 @@ class StateA(BaseModel):
     name: str
 
 async def page_a(state: StateA):
-    ...
+    st.write(f"Hello {state.name}")
+
+    if st.button("Go back"):
+        set_deeplink(None)
 
 @deeplinks(
     deeplinks={
@@ -31,7 +34,7 @@ async def page_a(state: StateA):
 def app():
     st.title("Deeplink Example")
 
-    st.write("This is the landing page. You can navigate to other pages using the sidebar.")
+    st.write("This is the landing page. You can navigate to other pages using the button bellow.")
 
     st.button("Next"):
         set_deeplink(StateA("World"))
@@ -55,7 +58,7 @@ The state is assumed to be defined as `pydantic` models, as they will be encoded
 > [!WARNING]  
 > Encoding data in the URL params can lead to issues for large payload, as web browsers have different max URL lengths. Therefore, try to keep the state as light weight as possible.
 
-Each `pydantic` model expects an associated function which.
+Each `pydantic` model expects an associated function which can either be an `async` function or not. Then the `.start()` method will figure out if it needs to run the application through `asyncio`.
 
 ```python
 @deeplinks(
