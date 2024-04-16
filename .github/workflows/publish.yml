@@ -1,0 +1,50 @@
+name: publish package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - uses: actions/cache@v3
+        id: cache-venv
+        with:
+          path: |
+            ~/.local
+            .venv
+          key: ${{ hashFiles('**/poetry.lock') }}-${{ steps.setup-python.outputs.python-version }}-1
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: false
+          version: 1.5.0
+      - run: |
+          python -m venv .venv --upgrade-deps
+          source .venv/bin/activate
+          poetry install --no-interaction --all-extras
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest
+
+  build-and-publish-py-package:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: MatsMoll/.github/workflows/publish@patch-1
+        with:
+          token: ${{ secrets.PYPI_TOKEN }}
+          python-version: '3.10.9'
+

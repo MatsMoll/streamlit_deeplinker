@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "streamlit-deeplinker"
+version = "0.1.0"
+description = "A package that makes it possible to add deeplinks in a streamlit application"
+authors = ["Mats E. Mollestad <mats@mollestad.no>"]
+readme = "README.md"
+packages = [{include = "streamlit_deeplinker"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.33.0"
+pydantic = "^2.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
