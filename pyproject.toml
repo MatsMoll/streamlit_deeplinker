@@ -11,6 +11,9 @@ python = "^3.10"
 streamlit = "^1.33.0"
 pydantic = "^2.7.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+
 
 [build-system]
 requires = ["poetry-core"]
