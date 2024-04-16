@@ -80,7 +80,8 @@ DeeplinkInitialRoute = Callable[[], Awaitable[None]] | Callable[[], None]
 
 @dataclass
 class DeeplinkRouter:
-    initial_route: DeeplinkInitialRoute,
+
+    initial_route: DeeplinkInitialRoute
     routes: dict[type[BaseModel], Callable[[BaseModel], Awaitable[None]] | Callable[[BaseModel], None]]
     sidebar: Callable[[DeltaGenerator], Awaitable[None]] | Callable[[DeltaGenerator], None] | None = None
     config: StreamlitConfig | None = None
